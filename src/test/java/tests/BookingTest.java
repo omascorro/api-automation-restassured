@@ -5,12 +5,16 @@ import static io.restassured.RestAssured.*;
 import api.booker.BookingAPI;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import listeners.ExtentReportExtension;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pojo.Booking;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@ExtendWith(ExtentReportExtension.class)
+@Tag("Booking_Regression")
 public class BookingTest {
 
     private static final Logger logger = LoggerFactory.getLogger(BookingTest.class);

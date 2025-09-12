@@ -109,6 +109,7 @@
                 <version>3.1.2</version>
                 <configuration>
                     <groups>
+                        Booking_Regression
                     </groups>
                 </configuration>
             </plugin>
