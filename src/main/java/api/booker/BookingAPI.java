@@ -33,6 +33,10 @@ public class BookingAPI extends APIBase {
 
         Map<String,Object> body = new HashMap<>();
         body.put("firstname" , booking.getFirstname());
+
+
+
+
         body.put("lastname" , booking.getLastname());
         body.put("totalprice" , booking.getTotalprice());
         body.put("depositpaid" , booking.isDepositpaid());

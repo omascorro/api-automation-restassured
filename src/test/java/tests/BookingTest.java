@@ -85,4 +85,48 @@ public class BookingTest {
         logger.info("firstname:" + firstName);
         Assertions.assertEquals("Teresa",firstName,"Failed: Firstname is not correct ");
     }
+
+    @Test
+    @Order(3)
+    void updateBooking() {
+
+        Booking booking = new Booking("Teresa","Mascorro",126,true,
+                "2025-10-10","2025-10-17","Lunch");
+
+        Response response = bookingAPI.updateBooking(booking,bookingId, bookingAPI.getToken());
+
+        Assertions.assertEquals(200,response.statusCode(),"Failed: Status code was not 200.");
+
+        String updatedLastName = response.jsonPath().getString("lastname");
+        logger.info("updatedLastName");
+        Assertions.assertEquals(booking.getLastname(),updatedLastName,
+                "Failed:  Last Name was not updated ");
+    }
+
+    @Test
+    @Order(4)
+    void deleteBooking() {
+        // 🔐 Borrar requiere token (cookie "token")
+        String token = bookingAPI.getToken();
+
+        Response response = bookingAPI.deleteBooking(bookingId, token);
+
+        logger.info("DELETE status: {}", response.statusCode());
+        // Restful-Booker devuelve 201 al borrar correctamente
+        Assertions.assertEquals(201, response.statusCode(),
+                "Failed: Expected 201 on successful delete (Restful-Booker).");
+    }
+
+    @Test
+    @Order(5)
+    void verifyBookingIsGone() {
+        // 🔎 Después del delete, el GET debe devolver 404 (no existe)
+        Response response = bookingAPI.getBooking(bookingId);
+
+        logger.info("GET-after-DELETE status: {}", response.statusCode());
+        Assertions.assertEquals(404, response.statusCode(),
+                "Failed: Expected 404 when fetching a deleted booking.");
+    }
+
+
 }
